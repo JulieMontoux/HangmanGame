@@ -13,7 +13,7 @@ for(x=0;x<lmot.length;x++){
     else lettres_trouvees.push(false);
 }
 
-var vies_restantes=11;
+var vies_restantes=6;
 var fini=false;
 
 function aff(){
@@ -35,7 +35,6 @@ function aff(){
     //alert(affi);
     document.getElementById("mot").innerHTML=affi;
     document.getElementById("vies").innerHTML="Il vous reste "+vies_restantes+" vies."
-    document.getElementById("img").src=imgs[vies_restantes];
     document.getElementById("lf").innerHTML="Lettres fausses : "+lfs;
     document.getElementById("lj").innerHTML="Lettres jouees : "+ljs;
 }
