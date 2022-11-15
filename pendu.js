@@ -1,9 +1,13 @@
 var di=parseInt(Math.random()*mots.length)
+// le mot
 var mot=mots[di][0];
+// l'indice à afficher
 var indice=mots[di][1];
+// le thème
 var theme=mots[di][2];
 var lmot=Array.from(mot);
 document.getElementById("theme").innerHTML="Theme : "+theme;
+// les tableaux
 var lettres_fausses=[];
 var lettres_trouvees=[];
 var lettres_jouees=[];
@@ -13,11 +17,12 @@ for(x=0;x<lmot.length;x++){
     else lettres_trouvees.push(false);
 }
 
-var vies_restantes=6;
+var vies_restantes = 6;
 var fini=false;
 
 function aff(){
     var affi="";
+    
     for(x=0;x<lettres_trouvees.length;x++){
         if( lettres_trouvees[x] ) affi+=" "+lmot[x]
         else affi+=" _"
@@ -85,7 +90,6 @@ function lettre(l){
         }
         if(gagne){
             alert("Vous avez Gagné !");
-            alert("L'indice était : "+indice);
             fini=true;
         }
     }
@@ -106,10 +110,12 @@ function restart(){
         if(lmot[x]=="-") lettres_trouvees.push(true);
         else lettres_trouvees.push(false);
     }
-
-    vies_restantes=12;
+    
+    vies_restantes=6;
     fini=false;
+    alert(mot);
     aff();
 }
 
+alert(mot);
 aff();
