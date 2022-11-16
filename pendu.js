@@ -13,48 +13,70 @@ var lettres_trouvees=[];
 var lettres_jouees=[];
 
 for(x=0;x<lmot.length;x++){
-    if(lmot[x]=="-") lettres_trouvees.push(true);
-    else lettres_trouvees.push(false);
+    if(lmot[x]=="-") {
+        lettres_trouvees.push(true);
+    }
+    else {
+        lettres_trouvees.push(false);
+    }
 }
 
 var vies_restantes = 6;
 var fini=false;
 
+// fonction d'affichage
 function aff(){
     var affi="";
-    
+// affichage mot caché
     for(x=0;x<lettres_trouvees.length;x++){
-        if( lettres_trouvees[x] ) affi+=" "+lmot[x]
-        else affi+=" _"
+        if( lettres_trouvees[x] ){
+            affi+=" "+lmot[x]
+        }
+        else {
+            affi+=" _"
+        }
     }
+// affichage lettres fausses
     var lfs="";
     for(x=0;x<lettres_fausses.length;x++){
-        if(x>0) lfs+=","
-        lfs+=" "+lettres_fausses[x]
+        if(x>0){
+            lfs+=","
+            lfs+=" "+lettres_fausses[x]
+        }
     }
+// affichage lettres justes
     var ljs="";
     for(x=0;x<lettres_jouees.length;x++){
         if(x>0) ljs+=","
         ljs+=" "+lettres_jouees[x]
     }
-    //alert(affi);
+// affichage sur la page
     document.getElementById("mot").innerHTML=affi;
     document.getElementById("vies").innerHTML="Il vous reste "+vies_restantes+" vies."
     document.getElementById("lf").innerHTML="Lettres fausses : "+lfs;
     document.getElementById("lj").innerHTML="Lettres jouees : "+ljs;
 }
 
+// fonction lettre
 function lettre(l){
+    // lettre non jouée
     var bon=true;
+
+    // partie terminée
     if(fini){
         bon=false;
         alert("La partie est finie");
     }
+    // lettre déjà jouée
     else if(lettres_jouees.includes(l)){
         alert("Tu as déjà joué cette lettre !");
         bon=false;
     }
-    else{ lettres_jouees.push( l ); }
+    else{ 
+        lettres_jouees.push( l ); 
+    }
+
+    // compteur de points
     if(bon){
         var trouve=false;
         for(x=0;x<lmot.length;x++){
@@ -71,17 +93,18 @@ function lettre(l){
         }
         
         aff();
-        
-        if(vies_restantes==1){
+        // affichage de l'indice
+        if(vies_restantes==2){
             alert("Indice : "+indice);
         }
-        //TEST PERDU
+        //partie perdue
         if(vies_restantes<=0){
-            alert("Et c'est ainsi que le pauvre monsieur se pendit ; VOUS AVEZ PERDU !");
+            alert("Et c'est la corde au cou que le Mr se pendit... Vous avez perdu !");
             alert("Le mot était : "+mot);
             fini=true;
         }
-        
+
+        // partie gagnée
         var gagne=true;
         for(x=0;x<lettres_trouvees.length;x++){
             if(!lettres_trouvees[x]){
@@ -89,12 +112,13 @@ function lettre(l){
             }
         }
         if(gagne){
-            alert("Vous avez Gagné !");
+            alert("Vous avez gagné !");
             fini=true;
         }
     }
 }   
-
+// fonction rejouer
+// donc réinitialisation de toutes les variables
 function restart(){
     di=parseInt(Math.random()*mots.length)
     mot=mots[di][0];
@@ -113,9 +137,10 @@ function restart(){
     
     vies_restantes=6;
     fini=false;
+    // affichage du mot pour la correction
     alert(mot);
     aff();
 }
-
+// affichage du mot pour la correction
 alert(mot);
 aff();
