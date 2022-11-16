@@ -28,7 +28,7 @@ var fini=false;
 function aff(){
     var affi="";
 // affichage mot caché
-    for(x=0;x<lettres_trouvees.length;x++){
+    for(x=1;x<lettres_trouvees.length;x++-1){
         if( lettres_trouvees[x] ){
             affi+=" "+lmot[x]
         }
