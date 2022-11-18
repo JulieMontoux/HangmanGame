@@ -12,6 +12,13 @@ var lettres_fausses=[];
 var lettres_trouvees=[];
 var lettres_jouees=[];
 
+document.addEventListener('keydown', ({keyCode})=> {
+    const letter = String.fromCharCode(keyCode); 
+    if(keyCode >= 65 && keyCode <=90){
+        checkLetter(letter); 
+    }
+}); 
+
 for(x=0;x<lmot.length;x++){
     if(lmot[x]=="-") {
         lettres_trouvees.push(true);
@@ -39,15 +46,15 @@ function aff(){
 // affichage lettres fausses
     var lfs="";
     for(x=0;x<lettres_fausses.length;x++){
-        if(x>0){
-            lfs+=" "+lettres_fausses[x]
+        if(x>=0){
             lfs+=","
+            lfs+=" "+lettres_fausses[x]
         }
     }
 // affichage lettres justes
     var ljs="";
     for(x=0;x<lettres_jouees.length;x++){
-        if(x>0) 
+        if(x>=0) 
         {
             ljs+=" "+lettres_jouees[x]
             ljs+=","
