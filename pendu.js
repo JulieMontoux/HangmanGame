@@ -12,12 +12,6 @@ var lettres_fausses=[];
 var lettres_trouvees=[];
 var lettres_jouees=[];
 
-document.addEventListener('keydown', ({keyCode})=> {
-    const letter = String.fromCharCode(keyCode); 
-    if(keyCode >= 65 && keyCode <=90){
-        checkLetter(letter); 
-    }
-}); 
 
 for(x=0;x<lmot.length;x++){
     if(lmot[x]=="-") {
@@ -34,21 +28,32 @@ var fini=false;
 // fonction d'affichage
 function aff(){
     var affi="";
-// affichage mot caché
-    for(x=0;x<lettres_trouvees.length;x++-1){
-        if( lettres_trouvees[x] ){
-            affi+=" "+lmot[x]
+// clavier 
+    document.addEventListener('keydown', ({keyCode})=> {
+        const l = String.fromCharCode(keyCode); 
+        if(keyCode >= 65 && keyCode <=90){
+        lettre(l); 
         }
-        else {
-            affi+=" _"
+    });
+// affichage mot caché
+for(x=0;x<lettres_trouvees.length;x++-1){
+        if (x === 0 || x == lettres_trouvees.length-1){
+            affi+=" "+lmot[x]
+        }else{
+            if( lettres_trouvees[x] ){
+                affi+=" "+lmot[x]
+            }
+            else {
+                affi+=" _"
+            }
         }
     }
 // affichage lettres fausses
     var lfs="";
     for(x=0;x<lettres_fausses.length;x++){
         if(x>=0){
-            lfs+=","
             lfs+=" "+lettres_fausses[x]
+            lfs+=","
         }
     }
 // affichage lettres justes
@@ -129,7 +134,7 @@ function lettre(l){
     }
     // partie gagnée
     var gagne=true;
-    for(x=0;x<lettres_trouvees.length;x++){
+    for(x=1;x<lettres_trouvees.length-1;x++){
         if(!lettres_trouvees[x]){
             gagne=false;      
         }
