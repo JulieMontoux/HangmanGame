@@ -28,7 +28,7 @@ var fini=false;
 function aff(){
     var affi="";
 // affichage mot caché
-    for(x=1;x<lettres_trouvees.length;x++-1){
+    for(x=0;x<lettres_trouvees.length;x++-1){
         if( lettres_trouvees[x] ){
             affi+=" "+lmot[x]
         }
@@ -40,19 +40,21 @@ function aff(){
     var lfs="";
     for(x=0;x<lettres_fausses.length;x++){
         if(x>0){
-            lfs+=","
             lfs+=" "+lettres_fausses[x]
+            lfs+=","
         }
     }
 // affichage lettres justes
     var ljs="";
     for(x=0;x<lettres_jouees.length;x++){
-        if(x>0) ljs+=","
-        ljs+=" "+lettres_jouees[x]
+        if(x>0) 
+        {
+            ljs+=" "+lettres_jouees[x]
+            ljs+=","
+        }
     }
 // affichage sur la page
     document.getElementById("mot").innerHTML=affi;
-    document.getElementById("vies").innerHTML="Il vous reste "+vies_restantes+" vies."
     document.getElementById("lf").innerHTML="Lettres fausses : "+lfs;
     document.getElementById("lj").innerHTML="Lettres jouees : "+ljs;
 }
@@ -69,11 +71,11 @@ function lettre(l){
     }
     // lettre déjà jouée
     else if(lettres_jouees.includes(l)){
-        alert("Tu as déjà joué cette lettre !");
         bon=false;
+        alert("Tu as déjà joué cette lettre !");
     }
     else{ 
-        lettres_jouees.push( l ); 
+        lettres_jouees.push(l); 
     }
 
     // compteur de points
@@ -89,34 +91,47 @@ function lettre(l){
             if(!(l in lettres_fausses)){
                 lettres_fausses.push(l);
                 vies_restantes-=1;
+                if (vies_restantes == 5){
+                    document.getElementById('box1').checked = true}
+                if (vies_restantes == 4){
+                    document.getElementById('box2').checked = true};
+                if (vies_restantes == 3){
+                    document.getElementById('box3').checked = true};
+                if (vies_restantes == 2){
+                    document.getElementById('box4').checked = true};
+                if (vies_restantes == 1){
+                    document.getElementById('box5').checked = true};
+                if (vies_restantes == 0){
+                    document.getElementById('box6').checked = true};
             }
+            
         }
         
-        aff();
-        // affichage de l'indice
-        if(vies_restantes==2){
-            alert("Indice : "+indice);
-        }
-        //partie perdue
-        if(vies_restantes<=0){
-            alert("Et c'est la corde au cou que le Mr se pendit... Vous avez perdu !");
-            alert("Le mot était : "+mot);
-            fini=true;
-        }
-
-        // partie gagnée
-        var gagne=true;
-        for(x=0;x<lettres_trouvees.length;x++){
-            if(!lettres_trouvees[x]){
-                gagne=false;      
-            }
-        }
-        if(gagne){
-            alert("Vous avez gagné !");
-            fini=true;
+    }
+        
+    aff();
+    // affichage de l'indice
+    if(vies_restantes==2){
+        alert("Indice : "+indice);
+    }
+    //partie perdue
+    if(vies_restantes<=0){
+        alert("Et c'est la corde au cou que le Mr se pendit... Vous avez perdu !");
+        alert("Le mot était : "+mot);
+        fini=true;
+    }
+    // partie gagnée
+    var gagne=true;
+    for(x=0;x<lettres_trouvees.length;x++){
+        if(!lettres_trouvees[x]){
+            gagne=false;      
         }
     }
-}   
+    if(gagne){
+        alert("Vous avez gagné !");
+        fini=true;
+    }
+}
 // fonction rejouer
 // donc réinitialisation de toutes les variables
 function restart(){
